@@ -1,4 +1,4 @@
-import 'package:analytics_flutter/home.dart';
+import 'package:analytics_flutter/ui/home/home.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(App());
@@ -11,7 +11,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-     home: HomePage(title: 'Home'),
+     home: HomeScreen(title: 'Home'),
     );
   }
 }
