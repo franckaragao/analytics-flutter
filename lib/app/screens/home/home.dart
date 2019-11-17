@@ -1,3 +1,5 @@
+import 'package:analytics_flutter/app/screens/dashboard/dashboard.dart';
+import 'package:analytics_flutter/routes.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,13 +11,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _counter = 0;
+  int currentTabIndex = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  List<Widget> tabs = [
+    DashboardScreen(Colors.pink)
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +23,40 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            )
-          ],
-        ),
-      )
+      body: tabs[currentTabIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        onTap: _onTap,
+        items: [
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.home),
+            title: new Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.settings),
+            title: new Text('Configurações')
+          ),
+          BottomNavigationBarItem(
+            icon: new Icon(Icons.exit_to_app),
+            title: new Text('Sair')
+          ),
+        ]
+      ),
     );
+  }
+
+  _onTap(int tabIndex) {
+    switch (tabIndex) {
+      case 2:
+        Navigator.of(context).pushReplacementNamed(Routes.login);
+        break;
+    }
+    setState(() {
+      if (tabIndex <= tabs.length - 1) {
+      currentTabIndex = tabIndex;
+      }
+    });
   }
 }
